@@ -7,7 +7,8 @@ import dash_html_components as html
 import plotly.graph_objs as go
 import pandas as pd
 import os
-
+import plotly.figure_factory as ff
+import base64
 app = dash.Dash(__name__)
 server = app.server
 
@@ -28,6 +29,10 @@ df_realized = pd.read_csv('https://plot.ly/~bdun9/2801.csv')
 df_unrealized = pd.read_csv('https://plot.ly/~bdun9/2802.csv')
 
 df_graph = pd.read_csv("https://plot.ly/~bdun9/2804.csv")
+
+# Images
+image_filename = 'logo.png' # replace with your own image
+encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 # reusable componenets
 def make_dash_table(df):
@@ -50,7 +55,7 @@ def get_logo():
     logo = html.Div([
 
         html.Div([
-            html.Img(src='http://logonoid.com/images/vanguard-logo.png', height='40', width='160')
+            html.Img(src='data:image/png;base64,{}'.format(encoded_image))
         ], className="ten columns padded"),
 
         html.Div([
@@ -66,7 +71,7 @@ def get_header():
 
         html.Div([
             html.H5(
-                'Vanguard 500 Index Fund Investor Shares')
+                'David Li Personal Databoard')
         ], className="twelve columns padded")
 
     ], className="row gs-header gs-text-header")
@@ -86,11 +91,11 @@ def get_menu():
 
         dcc.Link('Distributions   ', href='/distributions', className="tab"),
 
-        dcc.Link('News & Reviews   ', href='/news-and-reviews', className="tab")
+        dcc.Link('Academic TimeLine   ', href='/academic-timeline', className="tab")
 
     ], className="row ")
     return menu
-
+	
 ## Page layouts
 overview = html.Div([  # page 1
 
@@ -109,7 +114,7 @@ overview = html.Div([  # page 1
             html.Div([
 
                 html.Div([
-                    html.H6('Personal Background',
+                    html.H6('Personal Dashboard',
                             className="gs-header gs-text-header padded"),
                     html.P("\
 							I count the terms when I am looking, not the terms \
@@ -119,7 +124,7 @@ overview = html.Div([  # page 1
                     html.H6("Risk Potential",
                             className="gs-header gs-table-header padded"),
                     dcc.Graph(
-                        id='graph-3',
+                        id='graph-risk',
                         figure = {
                             'data': [
                                 go.Scatter(
@@ -1547,7 +1552,34 @@ distributions = html.Div([  # page 5
 
     ], className="page")
 
-newsReviews = html.Div([  # page 6
+
+ganttData = [
+    dict(Task='Fall 1A', Start='2014-09-01', Finish='2014-12-28', Resource='firstYear'),
+    dict(Task='Spring 1B', Start='2015-01-01', Finish='2015-04-30', Resource='firstYear'),
+	dict(Task='Summer 1C', Start='2015-05-01', Finish='2015-08-31', Resource='firstYear'),
+	dict(Task='Fall 2A', Start='2015-09-01', Finish='2015-12-31', Resource='secondYear'),
+	dict(Task='Courses I', Start='2016-01-01', Finish='2016-04-30', Resource='Other'),
+	dict(Task='Summer 2B', Start='2016-05-01', Finish='2016-08-31', Resource='secondYear'),
+	dict(Task='ENGR-001', Start='2016-09-14', Finish='2016-12-31', Resource='Coop'),
+	dict(Task='ENGR-002', Start='2017-01-01', Finish='2017-04-29', Resource='Coop'),
+	dict(Task='Courses II', Start='2017-05-01', Finish='2017-09-30', Resource='Other'),
+	dict(Task='Fall 3B', Start='2017-09-01', Finish='2017-12-31', Resource='thirdYear'),
+	dict(Task='Spring 3B', Start='2018-01-01', Finish='2018-04-30', Resource='thirdYear'),
+	dict(Task='Job Hunt', Start='2015-05-01', Finish='2018-04-30', Resource='thirdYear')
+    # dict(Task='Anime', Start='2014-01-01', Finish='2019-01-01', Resource='Anime')
+]
+ganttData.reverse()
+colors = dict(firstYear = 'rgb(46, 17, 255)',
+			  secondYear = 'rgb(46, 255, 51)',
+			  thirdYear = 'rgb(255, 75, 25)',
+              Coop = 'rgb(114, 2, 121)',
+              Other = 'rgb(128, 17, 15)',
+			  Anime = 'rgb(18, 76, 165)')
+fig = ff.create_gantt(ganttData,colors,index_col='Resource', title='Academic Life Thus Far',
+                      show_colorbar=True, bar_width=0.2, showgrid_x=True, showgrid_y=True,
+					  height=500, width=725)
+					  
+academicTimeline = html.Div([  # page 6
 
         print_button(),
 
@@ -1567,26 +1599,8 @@ newsReviews = html.Div([  # page 6
                 html.Div([
                     html.H6('Vanguard News',
                             className="gs-header gs-text-header padded"),
-                    html.Br([]),
-                    html.P('10/25/16    The rise of indexing and the fall of costs'),
-                    html.Br([]),
-                    html.P("08/31/16    It's the index mutual fund's 40th anniversary: Let the low-cost, passive party begin")
-                ], className="six columns"),
-
-                html.Div([
-                    html.H6("Reviews",
-                            className="gs-header gs-table-header padded"),
-                    html.Br([]),
-                    html.Li('Launched in 1976.'),
-                    html.Li('On average, has historically produced returns that have far outpaced the rate of inflation.*'),
-                    html.Li("Vanguard Quantitative Equity Group, the fund's advisor, is among the world's largest equity index managers."),
-                    html.Br([]),
-                    html.P("Did you know? The fund launched in 1976 as Vanguard First Index Investment Trust—the nation's first index fund available to individual investors."),
-                    html.Br([]),
-                    html.P("* The performance of an index is not an exact representation of any particular investment, as you cannot invest directly in an index."),
-                    html.Br([]),
-                    html.P("Past performance is no guarantee of future returns. See performance data current to the most recent month-end.")
-                ], className="six columns"),
+                    dcc.Graph(figure=fig, id='gantt'),
+                ], className="twelve columns")
 
             ], className="row ")
 
@@ -1622,8 +1636,8 @@ def display_page(pathname):
         return feesMins
     elif pathname == '/distributions':
         return distributions
-    elif pathname == '/news-and-reviews':
-        return newsReviews
+    elif pathname == '/academic-timeline':
+        return academicTimeline
     elif pathname == '/full-view':
         return overview,pricePerformance,portfolioManagement,feesMins,distributions,newsReviews
     else:
