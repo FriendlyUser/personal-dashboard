@@ -1650,4 +1650,4 @@ for js in external_js:
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True,port=1200)
+    app.server.run(debug=True, threaded=True)
