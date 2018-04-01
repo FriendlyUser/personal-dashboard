@@ -112,191 +112,28 @@ overview = html.Div([  # page 1
             html.Div([
 
                 html.Div([
-                    html.H6('Personal Background',
+                    html.H6('Product Summary',
                             className="gs-header gs-text-header padded"),
-                    html.P("\
-							I count the terms when I am looking, not the terms \
-							where I would be working. The number interviews I have had through UVIC \
-							is 11, 3 in Summer 2B, and 8 in Spring 3A/3B"),
+
                     html.Br([]),
-                    html.H6("Risk Potential",
-                            className="gs-header gs-table-header padded"),
-                    dcc.Graph(
-                        id='graph-3',
-                        figure = {
-                            'data': [
-                                go.Scatter(
-                                    x = ["0", "0.18", "0.18", "0"],
-                                    y = ["0.2", "0.2", "0.4", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.2)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "B",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.2", "0.38", "0.38", "0.2", "0.2"],
-                                    y = ["0.2", "0.2", "0.6", "0.4", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.4)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "D",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.4", "0.58", "0.58", "0.4", "0.4"],
-                                    y = ["0.2", "0.2", "0.8", "0.6", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.6)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "F",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.6", "0.78", "0.78", "0.6", "0.6"],
-                                    y = ["0.2", "0.2", "1", "0.8", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgb(31, 119, 180)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "H",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.8", "0.98", "0.98", "0.8", "0.8"],
-                                    y = ["0.2", "0.2", "1.2", "1", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.8)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "J",
-                                    showlegend = False
-                                ),
-                            ],
-                            'layout': go.Layout(
-                                title = "",
-                                annotations = [
-                                    {
-                                      "x": 0.69,
-                                      "y": 0.6,
-                                      "font": {
-                                        "color": "rgb(31, 119, 180)",
-                                        "family": "Raleway",
-                                        "size": 30
-                                      },
-                                      "showarrow": False,
-                                      "text": "<b>4</b>",
-                                      "xref": "x",
-                                      "yref": "y"
-                                    },
-                                    {
-                                      "x": 0.0631034482759,
-                                      "y": -0.04,
-                                      "align": "left",
-                                      "font": {
-                                        "color": "rgb(44, 160, 44)",
-                                        "family": "Raleway",
-                                        "size": 10
-                                      },
-                                      "showarrow": False,
-                                      "text": "<b>Less risk<br>Less reward</b>",
-                                      "xref": "x",
-                                      "yref": "y"
-                                    },
-                                    {
-                                      "x": 0.92125,
-                                      "y": -0.04,
-                                      "align": "right",
-                                      "font": {
-                                        "color": "rgb(214, 39, 40)",
-                                        "family": "Raleway",
-                                        "size": 10
-                                      },
-                                      "showarrow": False,
-                                      "text": "<b>More risk<br>More reward</b>",
-                                      "xref": "x",
-                                      "yref": "y"
-                                    }
-                                  ],
-                                  autosize = False,
-                                  height = 200,
-                                  width = 340,
-                                  hovermode = "closest",
-                                  margin = {
-                                    "r": 10,
-                                    "t": 20,
-                                    "b": 80,
-                                    "l": 10
-                                  },
-                                  shapes = [
-                                    {
-                                      "fillcolor": "rgb(255, 255, 255)",
-                                      "line": {
-                                        "color": "rgb(31, 119, 180)",
-                                        "width": 4
-                                      },
-                                      "opacity": 1,
-                                      "type": "circle",
-                                      "x0": 0.621,
-                                      "x1": 0.764,
-                                      "xref": "x",
-                                      "y0": 0.135238095238,
-                                      "y1": 0.98619047619,
-                                      "yref": "y"
-                                    }
-                                  ],
-                                  showlegend = True,
-                                  xaxis = {
-                                    "autorange": False,
-                                    "fixedrange": True,
-                                    "range": [-0.05, 1.05],
-                                    "showgrid": False,
-                                    "showticklabels": False,
-                                    "title": "<br>",
-                                    "type": "linear",
-                                    "zeroline": False
-                                  },
-                                  yaxis = {
-                                    "autorange": False,
-                                    "fixedrange": True,
-                                    "range": [-0.3, 1.6],
-                                    "showgrid": False,
-                                    "showticklabels": False,
-                                    "title": "<br>",
-                                    "type": "linear",
-                                    "zeroline": False
-                                }
-                            )
-                        },
-                        config={
-                            'displayModeBar': False
-                        }
-                    )
-                    # html.P("\
-                            # As the industry’s first index fund for individual investors, \
-                            # the 500 Index Fund is a low-cost way to gain diversified exposure \
-                            # to the U.S. equity market. The fund offers exposure to 500 of the \
-                            # largest U.S. companies, which span many different industries and \
-                            # account for about three-fourths of the U.S. stock market’s value. \
-                            # The key risk for the fund is the volatility that comes with its full \
-                            # exposure to the stock market. Because the 500 Index Fund is broadly \
-                            # diversified within the large-capitalization market, it may be \
-                            # considered a core equity holding in a portfolio."),
+
+                    html.P("\
+                            As the industry’s first index fund for individual investors, \
+                            the 500 Index Fund is a low-cost way to gain diversified exposure \
+                            to the U.S. equity market. The fund offers exposure to 500 of the \
+                            largest U.S. companies, which span many different industries and \
+                            account for about three-fourths of the U.S. stock market’s value. \
+                            The key risk for the fund is the volatility that comes with its full \
+                            exposure to the stock market. Because the 500 Index Fund is broadly \
+                            diversified within the large-capitalization market, it may be \
+                            considered a core equity holding in a portfolio."),
 
                 ], className="six columns"),
 
                 html.Div([
-                    html.H6(["Job Interview Rates and Applications"],
+                    html.H6(["Fund Facts"],
                             className="gs-header gs-table-header padded"),
-                    #html.Table(make_dash_table(df_fund_facts))
+                    html.Table(make_dash_table(df_fund_facts))
                 ], className="six columns"),
                 
                 html.Div([
@@ -321,18 +158,13 @@ overview = html.Div([  # page 1
 #                            Statistics Canada. Table 477-0058 - Financial information \
 #                            of universities and degree-granting colleges, revenues by type of funds, annual (dollars) \
 #                            (accessed: March 30, 2018)"),
-                    html.P("\
-							In order to find a co-op work term, I applied to a large \
-							number of jobs, but as I am not the best at interviews, \
-							I usually appeared as a weak/unprepared candidate, guess I'm \
-							no good at answering questions. "),
                     dcc.Graph(
-                        id = "graph-bar-interviews",
+                        id = "graph-8",
                         figure={
                             'data': [
                                 go.Bar(
-                                    x=  ['Victoria', 'Vancouver'],
-                                    y = ['3','3'],
+                                    x = dates,
+                                    y = ["32085344","33582495","35071107","35898986","34761775"],
                                     marker = {
                                       "color": "rgb(255, 225, 53)",
                                       "line": {
@@ -340,12 +172,12 @@ overview = html.Div([  # page 1
                                         "width": 2
                                         }
                                     },
-                                    name = "2B term (Summer 2016) Interviews",
+                                    name = "Total revenues ($ CAN)",
                                     type = "bar"
                                 ),
                                 go.Bar(
-                                    x = ['Victoria', 'Vancouver'],
-                                    y = ['2','8'],
+                                    x = [dates],
+                                    y = df_coolgraph.iloc[2][1:],
                                     marker = {
                                       "color": "rgb(53, 83, 255)",
                                       "line": {
@@ -354,7 +186,7 @@ overview = html.Div([  # page 1
                                       }
                                     },
                                     # get list of organization from sub dataframe
-                                    name = "3B/3A term (Spring 2018) Interviews",
+                                    name = str(list(df_coolgraph.iloc[2])[0]),
                                     type = "bar"
                                 ),
                             ],
@@ -403,61 +235,6 @@ overview = html.Div([  # page 1
                         config={
                             'displayModeBar': False
                         }
-                    ),
-				   dcc.Graph(
-						id = "graph-appPerTerms",
-						figure={
-							'data': [
-								{
-									"labels":  ['Summer 1B', 'Summer 2B','Spring 3A/3B'],
-									"values": ['6','79','94'],
-									"hoverinfo":'label+percent+name', 
-									"textinfo": 'value', 
-									"name": "Apps Per Term",
-									"type": "pie",
-									"hole": .2,
-									"domain": {"x": [0, .48]},
-								},
-								{
-									"labels": ['Summer 1B', 'Summer 2B','Spring 3A/3B'],
-									"values": ['1','6','12'],
-									# get list of organization from sub dataframe
-									"name": "Interviews Per Term",
-									"hoverinfo":'label+percent+name', 
-									"textinfo": 'value', 
-									"type": "pie",
-									"hole": .2,
-									"domain": {"x": [0.65, 1.13]},
-								},
-							],
-							'layout': go.Layout(
-								autosize = False,
-								font = {
-								  "family": "Raleway",
-								  "size": 10
-								},
-								height = 200,
-								hovermode = "closest",
-								legend = {
-								  "x": -0.0228945952895,
-								  "y": -0.189563896463,
-								  "orientation": "h",
-								  "yanchor": "top"
-								},
-								margin = {
-								  "r": 0,
-								  "t": 20,
-								  "b": 10,
-								  "l": 10
-								},
-								showlegend = True,
-								title = "",
-								width = 340
-							)
-						},
-						config={
-							'displayModeBar': False
-						},
                     )
                 ], className="six columns"),
 
@@ -1650,4 +1427,4 @@ for js in external_js:
 
 
 if __name__ == '__main__':
-    app.server.run(debug=True, threaded=True)
+    app.run_server(debug=True,port=1200)
