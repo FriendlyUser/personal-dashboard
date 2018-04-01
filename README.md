@@ -1,4 +1,9 @@
-# Deploying your Dash app online
+## Summary
+This python database was a way for me to record statistics of interest to me.
+
+*Available*: https://davidli-personal-databoard.herokuapp.com/
+
+### Deploying your Dash app online
 
 1. Setup account on Heroku and download Heroku CLI utility
 2. Navigate to this folder
@@ -15,3 +20,4 @@ Delete the runtime.txt if you wish to run on Python 2.7.x instead of 3.6.x
 
 Do NOT rename or delete any other file in this folder (except this README) or else your
 app will not setup properly.
+
