@@ -8,7 +8,7 @@ import plotly.graph_objs as go
 import pandas as pd
 import os
 import plotly.figure_factory as ff
-import base64
+
 app = dash.Dash(__name__)
 server = app.server
 
@@ -30,10 +30,6 @@ df_unrealized = pd.read_csv('https://plot.ly/~bdun9/2802.csv')
 
 df_graph = pd.read_csv("https://plot.ly/~bdun9/2804.csv")
 
-# Images
-image_filename = 'logo.png' # replace with your own image
-encoded_image = base64.b64encode(open(image_filename, 'rb').read())
-
 # reusable componenets
 def make_dash_table(df):
     ''' Return a dash definitio of an HTML table for a Pandas dataframe '''
@@ -53,9 +49,8 @@ def print_button():
 # includes page/full view
 def get_logo():
     logo = html.Div([
-
         html.Div([
-            html.Img(src='data:image/png;base64,{}'.format(encoded_image))
+            html.Img(src='http://www.web.uvic.ca/~lidavid/images/logo.png', width = 25, height = 25)
         ], className="ten columns padded"),
 
         html.Div([
@@ -1577,7 +1572,7 @@ colors = dict(firstYear = 'rgb(46, 17, 255)',
 			  Anime = 'rgb(18, 76, 165)')
 fig = ff.create_gantt(ganttData,colors,index_col='Resource', title='Academic Life Thus Far',
                       show_colorbar=True, bar_width=0.2, showgrid_x=True, showgrid_y=True,
-					  height=500, width=725)
+					  height=575, width=725)
 					  
 academicTimeline = html.Div([  # page 6
 
@@ -1597,7 +1592,7 @@ academicTimeline = html.Div([  # page 6
             html.Div([
 
                 html.Div([
-                    html.H6('Vanguard News',
+                    html.H6('Life Timeline',
                             className="gs-header gs-text-header padded"),
                     dcc.Graph(figure=fig, id='gantt'),
                 ], className="twelve columns")
