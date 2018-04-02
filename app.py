@@ -30,6 +30,7 @@ df_unrealized = pd.read_csv('https://plot.ly/~bdun9/2802.csv')
 
 df_graph = pd.read_csv("https://plot.ly/~bdun9/2804.csv")
 
+df_examS2018 = pd.read_csv("examSchedule.csv")
 # reusable componenets
 def make_dash_table(df):
     ''' Return a dash definitio of an HTML table for a Pandas dataframe '''
@@ -87,7 +88,7 @@ def get_menu():
         #dcc.Link('Fees & Minimums   ', href='/fees', className="tab"),
 
         #dcc.Link('Distributions   ', href='/distributions', className="tab"),
-
+        dcc.Link('Current Facts   ', href='/current-facts', className="tab"),
         dcc.Link('Academic TimeLine   ', href='/academic-timeline', className="tab")
 
     ], className="row ")
@@ -139,7 +140,7 @@ overview = html.Div([  # page 1
                                     marker = {"color": "rgb(93, 155, 25)"},
                                     name = "Cumulative GPA"
                                 ),
-							]
+							],
 						}),
                 ], className=" twelve columns"),
 
@@ -1355,7 +1356,56 @@ colors = dict(firstYear = 'rgb(46, 17, 255)',
 fig = ff.create_gantt(ganttData,colors,index_col='Resource', title='Academic Life Thus Far',
                       show_colorbar=True, bar_width=0.2, showgrid_x=True, showgrid_y=True,
 					  height=575, width=725)
-					  
+
+currentFacts = html.Div([ # page 6
+ print_button(),
+
+        html.Div([
+
+            # Header
+
+            get_logo(),
+            get_header(),
+            html.Br([]),
+            get_menu(),
+
+            # Row 1
+
+            html.Div([
+				html.Div([
+				    html.H6('Spring 2018 Final Exam Schedule',
+                            className="gs-header gs-text-header padded"),
+					html.Table(make_dash_table(df_examS2018))	
+				], className="twelve columns"),
+				html.Div([
+					html.H6('Some Python',
+                            className="gs-header gs-text-header padded"),
+					dcc.SyntaxHighlighter('''
+import python
+print(3)
+import easygui
+file = easygui.fileopenbox()
+print(file)
+
+from PyPDF2 import PdfFileWriter, PdfFileReader
+
+inputpdf = PdfFileReader(open(file, "rb"))
+
+for i in range(inputpdf.numPages):
+    output = PdfFileWriter()
+    output.addPage(inputpdf.getPage(i))
+    with open("document-page%s.pdf" % i, "wb") as outputStream:
+        output.write(outputStream)
+        print("File: "+ "document-page%s.pdf" % i + " is printed")
+
+print("The script is done.")
+				''', language='python')
+				], className="twelve columns"),
+            ], className="row ")
+
+        ], className="subpage")
+
+    ], className="page")				
 academicTimeline = html.Div([  # page 6
 
         print_button(),
@@ -1417,6 +1467,8 @@ def display_page(pathname):
         return feesMins
     elif pathname == '/distributions':
         return distributions
+    elif pathname == '/current-facts':
+        return currentFacts
     elif pathname == '/academic-timeline':
         return academicTimeline
     elif pathname == '/full-view':
