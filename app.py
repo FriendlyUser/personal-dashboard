@@ -51,6 +51,7 @@ def get_logo():
     logo = html.Div([
         html.Div([
             html.Img(src='http://www.web.uvic.ca/~lidavid/images/logo.png', width = 25, height = 25)
+			# Consider adding link to git repo.
         ], className="ten columns padded"),
 
         html.Div([
@@ -114,6 +115,32 @@ overview = html.Div([  # page 1
                             className="gs-header gs-text-header padded"),
                     html.P("\
 							Simple Dashboard highlighting statistics that are interesting to me."),
+					dcc.Graph(
+                        id = 'graph-6',
+                        figure = {
+                            'data': [
+                                go.Scatter(
+                                    x = ["Spring 2014", "Fall 2014", "Winter 2015",
+									"Summer 2015", "Fall 2015","Winter 2016",
+									"Summer 2016", "Summer 2017","Fall 2017"],
+                                    y = ["0", "6.76", "4.94",
+									"8.75","7.80","6.66",
+									"7.20","7.67","7.20"],
+                                    marker = {"color": "rgb(53, 83, 255)"},
+                                    name = "Seasonal GPA"
+                                ),
+								go.Scatter(
+                                    x = ["Spring 2014", "Fall 2014", "Winter 2015",
+									"Summer 2015", "Fall 2015","Winter 2016",
+									"Summer 2016","Summer 2017", "Fall 2017"],
+                                    y = ["0", "6.76", "6.12",
+									"6.87","7.10","7.04",
+									"7.07","7.12","7.20"],
+                                    marker = {"color": "rgb(93, 155, 25)"},
+                                    name = "Cumulative GPA"
+                                ),
+							]
+						}),
                 ], className=" twelve columns"),
 
             ], className="row "),
