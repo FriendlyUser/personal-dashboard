@@ -529,7 +529,7 @@ coopJobStats = html.Div([  # page 3
 							'data': [
 								{
 									"labels":  ['Summer 1B', 'Summer 2B','Spring 3A/3B'],
-									"values": ['6','79','94'],
+									"values": ['6','79','101'],
 									"hoverinfo":'label+percent+name', 
 									"textinfo": 'value', 
 									"name": "Apps Per Term",
@@ -539,7 +539,7 @@ coopJobStats = html.Div([  # page 3
 								},
 								{
 									"labels": ['Summer 1B', 'Summer 2B','Spring 3A/3B'],
-									"values": ['1','6','12'],
+									"values": ['1','6','15'],
 									# get list of organization from sub dataframe
 									"name": "Interviews Per Term",
 									"hoverinfo":'label+percent+name', 
