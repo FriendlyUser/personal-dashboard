@@ -442,7 +442,9 @@ coopJobStats = html.Div([  # page 3
 							In order to find a co-op work term, I applied to a large \
 							number of jobs, but as I am not the best at interviews, \
 							I usually appeared as a weak/unprepared candidate, guess I'm \
-							no good at answering questions. "),
+							no good at answering questions. \
+							Interestingly, it seems as if there is a increased \
+							percentage of jobs are in Victoria near the end of April."),
                     dcc.Graph(
                         id = "graph-bar-interviews",
                         figure={
@@ -462,7 +464,7 @@ coopJobStats = html.Div([  # page 3
                                 ),
                                 go.Bar(
                                     x = ['Victoria', 'Vancouver'],
-                                    y = ['2','8'],
+                                    y = ['5','8'],
                                     marker = {
                                       "color": "rgb(53, 83, 255)",
                                       "line": {
