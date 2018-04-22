@@ -3,3 +3,7 @@ venv
 .DS_Store
 .env
 appOriginal.py
+boxplotGrades.py
+boxplotGradesSideways.py
+temp-plot.html
+~$gradesSpread.xlsx
