@@ -15,7 +15,7 @@ server = app.server
 # read data for tables (one df per table)
 df_examS2018 = pd.read_csv("examSchedule.csv")
 df_grades = pd.read_excel("gradesSpread.xlsx")
-
+df_numJobsest = pd.read_csv("numofJobsGuess.txt")
 # reusable components
 def make_dash_table(df):
     ''' Return a dash definition of an HTML table for a Pandas dataframe '''
@@ -231,167 +231,55 @@ coopJobStats = html.Div([  # page 3
 							where I would be working. The number interviews I have had through UVIC \
 							is 11, 3 in Summer 2B, and 8 in Spring 3A/3B"),
                     html.Br([]),
-                    html.H6("Risk Potential",
+ 
+                    # My plot to show jobs vs time
+                    html.H6("Number of jobs for CENG student in Fall 2018",
                             className="gs-header gs-table-header padded"),
-                    dcc.Graph(
-                        id='graph-risk',
-                        figure = {
-                            'data': [
+                        dcc.Graph(
+                            id='graph-jobsEst',
+                            figure = {
+                                'data': [
                                 go.Scatter(
-                                    x = ["0", "0.18", "0.18", "0"],
-                                    y = ["0.2", "0.2", "0.4", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.2)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "B",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.2", "0.38", "0.38", "0.2", "0.2"],
-                                    y = ["0.2", "0.2", "0.6", "0.4", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.4)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "D",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.4", "0.58", "0.58", "0.4", "0.4"],
-                                    y = ["0.2", "0.2", "0.8", "0.6", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.6)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "F",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.6", "0.78", "0.78", "0.6", "0.6"],
-                                    y = ["0.2", "0.2", "1", "0.8", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgb(31, 119, 180)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "H",
-                                    showlegend = False
-                                ),
-                                go.Scatter(
-                                    x = ["0.8", "0.98", "0.98", "0.8", "0.8"],
-                                    y = ["0.2", "0.2", "1.2", "1", "0.2"],
-                                    fill = "tozerox",
-                                    fillcolor = "rgba(31, 119, 180, 0.8)",
-                                    hoverinfo = "none",
-                                    line = {"width": 0},
-                                    mode = "lines",
-                                    name = "J",
-                                    showlegend = False
-                                ),
-                            ],
-                            'layout': go.Layout(
-                                title = "",
-                                annotations = [
-                                    {
-                                      "x": 0.69,
-                                      "y": 0.6,
-                                      "font": {
-                                        "color": "rgb(31, 119, 180)",
-                                        "family": "Raleway",
-                                        "size": 30
-                                      },
-                                      "showarrow": False,
-                                      "text": "<b>4</b>",
-                                      "xref": "x",
-                                      "yref": "y"
+                                    x=df_numJobsest.Date,
+                                    y=df_numJobsest.numOfJobs,
+                                    name = "Estimated Jobs",
+                                    line = dict(color = '#7F7F7F'),
+                                    opacity = 0.8)
+                                ],
+                                'layout': go.Layout(
+                                    font = {
+                                      "family": "Raleway",
+                                      "size": 10
                                     },
-                                    {
-                                      "x": 0.0631034482759,
-                                      "y": -0.04,
-                                      "align": "left",
-                                      "font": {
-                                        "color": "rgb(44, 160, 44)",
-                                        "family": "Raleway",
-                                        "size": 10
-                                      },
-                                      "showarrow": False,
-                                      "text": "<b>Less risk<br>Less reward</b>",
-                                      "xref": "x",
-                                      "yref": "y"
+                                    height = 400,
+                                    hovermode = "closest",
+                                    legend = {
+                                      "x": -0.0228945952895,
+                                      "y": -0.189563896463,
+                                      "orientation": "h",
+                                      "yanchor": "top"
                                     },
-                                    {
-                                      "x": 0.92125,
-                                      "y": -0.04,
-                                      "align": "right",
-                                      "font": {
-                                        "color": "rgb(214, 39, 40)",
-                                        "family": "Raleway",
-                                        "size": 10
-                                      },
-                                      "showarrow": False,
-                                      "text": "<b>More risk<br>More reward</b>",
-                                      "xref": "x",
-                                      "yref": "y"
+                                    margin = {
+                                      "r": 0,
+                                      "t": 20,
+                                      "b": 10,
+                                      "l": 10
+                                    },
+                                    showlegend = True,
+                                    xaxis = {
+                                      "autorange": True,
+                                      "showline": True,
+                                      "title": "Date (dd-mm-yy)"
+                                    },
+                                    yaxis = {
+                                      "autorange": True,
+                                      "showgrid": True,
+                                      "showline": True
                                     }
-                                  ],
-                                  autosize = False,
-                                  height = 200,
-                                  width = 340,
-                                  hovermode = "closest",
-                                  margin = {
-                                    "r": 10,
-                                    "t": 20,
-                                    "b": 80,
-                                    "l": 10
-                                  },
-                                  shapes = [
-                                    {
-                                      "fillcolor": "rgb(255, 255, 255)",
-                                      "line": {
-                                        "color": "rgb(31, 119, 180)",
-                                        "width": 4
-                                      },
-                                      "opacity": 1,
-                                      "type": "circle",
-                                      "x0": 0.621,
-                                      "x1": 0.764,
-                                      "xref": "x",
-                                      "y0": 0.135238095238,
-                                      "y1": 0.98619047619,
-                                      "yref": "y"
-                                    }
-                                  ],
-                                  showlegend = True,
-                                  xaxis = {
-                                    "autorange": False,
-                                    "fixedrange": True,
-                                    "range": [-0.05, 1.05],
-                                    "showgrid": False,
-                                    "showticklabels": False,
-                                    "title": "<br>",
-                                    "type": "linear",
-                                    "zeroline": False
-                                  },
-                                  yaxis = {
-                                    "autorange": False,
-                                    "fixedrange": True,
-                                    "range": [-0.3, 1.6],
-                                    "showgrid": False,
-                                    "showticklabels": False,
-                                    "title": "<br>",
-                                    "type": "linear",
-                                    "zeroline": False
-                                }
-                            )
-                        },
-                        config={
-                            'displayModeBar': False
-                        }
-                    )
+                                )   
+                            }
+                        )
+                            
 
                 ], className="six columns"),
 				#html.Table(make_dash_table(df_fund_facts))
@@ -558,6 +446,168 @@ coopJobStats = html.Div([  # page 3
 						config={
 							'displayModeBar': False
 						},
+                    ), 
+                    html.Br([]),
+                    html.H6("Risk Potential",
+                        className="gs-header gs-table-header padded"),
+                    dcc.Graph(
+                        id='graph-risk',
+                        figure = {
+                            'data': [
+                                go.Scatter(
+                                    x = ["0", "0.18", "0.18", "0"],
+                                    y = ["0.2", "0.2", "0.4", "0.2"],
+                                    fill = "tozerox",
+                                    fillcolor = "rgba(31, 119, 180, 0.2)",
+                                    hoverinfo = "none",
+                                    line = {"width": 0},
+                                    mode = "lines",
+                                    name = "B",
+                                    showlegend = False
+                                ),
+                                go.Scatter(
+                                    x = ["0.2", "0.38", "0.38", "0.2", "0.2"],
+                                    y = ["0.2", "0.2", "0.6", "0.4", "0.2"],
+                                    fill = "tozerox",
+                                    fillcolor = "rgba(31, 119, 180, 0.4)",
+                                    hoverinfo = "none",
+                                    line = {"width": 0},
+                                    mode = "lines",
+                                    name = "D",
+                                    showlegend = False
+                                ),
+                                go.Scatter(
+                                    x = ["0.4", "0.58", "0.58", "0.4", "0.4"],
+                                    y = ["0.2", "0.2", "0.8", "0.6", "0.2"],
+                                    fill = "tozerox",
+                                    fillcolor = "rgba(31, 119, 180, 0.6)",
+                                    hoverinfo = "none",
+                                    line = {"width": 0},
+                                    mode = "lines",
+                                    name = "F",
+                                    showlegend = False
+                                ),
+                                go.Scatter(
+                                    x = ["0.6", "0.78", "0.78", "0.6", "0.6"],
+                                    y = ["0.2", "0.2", "1", "0.8", "0.2"],
+                                    fill = "tozerox",
+                                    fillcolor = "rgb(31, 119, 180)",
+                                    hoverinfo = "none",
+                                    line = {"width": 0},
+                                    mode = "lines",
+                                    name = "H",
+                                    showlegend = False
+                                ),
+                                go.Scatter(
+                                    x = ["0.8", "0.98", "0.98", "0.8", "0.8"],
+                                    y = ["0.2", "0.2", "1.2", "1", "0.2"],
+                                    fill = "tozerox",
+                                    fillcolor = "rgba(31, 119, 180, 0.8)",
+                                    hoverinfo = "none",
+                                    line = {"width": 0},
+                                    mode = "lines",
+                                    name = "J",
+                                    showlegend = False
+                                ),
+                            ],
+                            'layout': go.Layout(
+                                title = "",
+                                annotations = [
+                                    {
+                                      "x": 0.69,
+                                      "y": 0.6,
+                                      "font": {
+                                        "color": "rgb(31, 119, 180)",
+                                        "family": "Raleway",
+                                        "size": 30
+                                      },
+                                      "showarrow": False,
+                                      "text": "<b>4</b>",
+                                      "xref": "x",
+                                      "yref": "y"
+                                    },
+                                    {
+                                      "x": 0.0631034482759,
+                                      "y": -0.04,
+                                      "align": "left",
+                                      "font": {
+                                        "color": "rgb(44, 160, 44)",
+                                        "family": "Raleway",
+                                        "size": 10
+                                      },
+                                      "showarrow": False,
+                                      "text": "<b>Less risk<br>Less reward</b>",
+                                      "xref": "x",
+                                      "yref": "y"
+                                    },
+                                    {
+                                      "x": 0.92125,
+                                      "y": -0.04,
+                                      "align": "right",
+                                      "font": {
+                                        "color": "rgb(214, 39, 40)",
+                                        "family": "Raleway",
+                                        "size": 10
+                                      },
+                                      "showarrow": False,
+                                      "text": "<b>More risk<br>More reward</b>",
+                                      "xref": "x",
+                                      "yref": "y"
+                                    }
+                                  ],
+                                  autosize = False,
+                                  height = 200,
+                                  width = 340,
+                                  hovermode = "closest",
+                                  margin = {
+                                    "r": 10,
+                                    "t": 20,
+                                    "b": 80,
+                                    "l": 10
+                                  },
+                                  shapes = [
+                                    {
+                                      "fillcolor": "rgb(255, 255, 255)",
+                                      "line": {
+                                        "color": "rgb(31, 119, 180)",
+                                        "width": 4
+                                      },
+                                      "opacity": 1,
+                                      "type": "circle",
+                                      "x0": 0.621,
+                                      "x1": 0.764,
+                                      "xref": "x",
+                                      "y0": 0.135238095238,
+                                      "y1": 0.98619047619,
+                                      "yref": "y"
+                                    }
+                                  ],
+                                  showlegend = True,
+                                  xaxis = {
+                                    "autorange": False,
+                                    "fixedrange": True,
+                                    "range": [-0.05, 1.05],
+                                    "showgrid": False,
+                                    "showticklabels": False,
+                                    "title": "<br>",
+                                    "type": "linear",
+                                    "zeroline": False
+                                  },
+                                  yaxis = {
+                                    "autorange": False,
+                                    "fixedrange": True,
+                                    "range": [-0.3, 1.6],
+                                    "showgrid": False,
+                                    "showticklabels": False,
+                                    "title": "<br>",
+                                    "type": "linear",
+                                    "zeroline": False
+                                }
+                            )
+                        },
+                        config={
+                            'displayModeBar': False
+                        }
                     )
                 ], className="six columns"),
             ], className="row "),
