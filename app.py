@@ -16,6 +16,7 @@ server = app.server
 df_examS2018 = pd.read_csv("examSchedule.csv")
 df_grades = pd.read_excel("gradesSpread.xlsx")
 df_numJobsest = pd.read_csv("numofJobsGuess.txt")
+df_numJobs = pd.read_csv("numofJobs.txt")
 # reusable components
 def make_dash_table(df):
     ''' Return a dash definition of an HTML table for a Pandas dataframe '''
@@ -102,20 +103,20 @@ overview = html.Div([  # page 1
                                 go.Scatter(
                                     x = ["Spring 2014", "Fall 2014", "Winter 2015",
 									"Summer 2015", "Fall 2015","Winter 2016",
-									"Summer 2016", "Summer 2017","Fall 2017"],
+									"Summer 2016", "Summer 2017","Fall 2017","Spring 2018"],
                                     y = ["0", "6.76", "4.94",
 									"8.75","7.80","6.66",
-									"7.20","7.67","7.20"],
+									"7.20","7.67","7.20","4.60"],
                                     marker = {"color": "rgb(53, 83, 255)"},
                                     name = "Seasonal GPA"
                                 ),
 								go.Scatter(
                                     x = ["Spring 2014", "Fall 2014", "Winter 2015",
 									"Summer 2015", "Fall 2015","Winter 2016",
-									"Summer 2016","Summer 2017", "Fall 2017"],
+									"Summer 2016","Summer 2017", "Fall 2017","Spring 2018"],
                                     y = ["0", "6.76", "6.12",
 									"6.87","7.10","7.04",
-									"7.07","7.12","7.20"],
+									"7.07","7.13","7.15","6.81"],
                                     marker = {"color": "rgb(93, 155, 25)"},
                                     name = "Cumulative GPA"
                                 ),
@@ -244,7 +245,13 @@ coopJobStats = html.Div([  # page 3
                                     y=df_numJobsest.numOfJobs,
                                     name = "Estimated Jobs",
                                     line = dict(color = '#7F7F7F'),
-                                    opacity = 0.8)
+                                    opacity = 0.8),
+                                go.Scatter(
+                                    x=df_numJobs.Date,
+                                    y=df_numJobs.numOfJobs,
+                                    name = "Number of jabs Jobs",
+                                    line = dict(color = '#FF1FFF'),
+                                    opacity = 0.6)
                                 ],
                                 'layout': go.Layout(
                                     font = {
@@ -626,6 +633,8 @@ df3 = pd.read_excel(xls, 'term1C')
 df4 = pd.read_excel(xls, 'term2A')
 df5 = pd.read_excel(xls, 'coursesI')
 df6 = pd.read_excel(xls, 'term2B')
+df7 = pd.read_excel(xls, 'term3A')
+df8 = pd.read_excel(xls, 'term3B')
 
 # First Year Courses
 year1AMyScores = df1['My Score'].tolist()
@@ -655,13 +664,22 @@ secondYearAvgs   = year2AAverages + year2cIAverages + year2BAverages
 secondYearLabel = ['Term 2A'] * len(year2AMyScores) +  \
     ['Term 2.5'] * len(year2cIMyScores) + ['Term 2B'] * len(year2BMyScores)
 
-secondYearLabel = ['Term 2A'] * len(year2AMyScores) +  \
-    ['Term 2.5'] * len(year2cIMyScores) + ['Term 2B'] * len(year2BMyScores)
+# Third year courses
+year3AMyScores = df7['My Score'].tolist()
+year3AAverages = df7['Average'].tolist()
+year3BMyScores = df8['My Score'].tolist()
+year3BAverages = df8['Average'].tolist()
+
+thirdYearScores = year3AMyScores + year3BMyScores
+thirdYearAvgs   = year3AAverages + year3BAverages
+
+thirdYearLabel = ['Term 3A'] * len(year3AMyScores) +  \
+    ['Term 3B'] * len(year3BMyScores)
 
 # Plot configurations
 myScore = go.Box(
-    x=firstYearScores+secondYearScores,
-    y=firstYearLabel+secondYearLabel,
+    x=firstYearScores+secondYearScores+thirdYearScores,
+    y=firstYearLabel+secondYearLabel+thirdYearLabel,
     name='My Grade',
     marker=dict(
         color='#3D9970'
@@ -669,8 +687,8 @@ myScore = go.Box(
     orientation = 'h'
 )
 Average = go.Box(
-    x=firstYearAvgs+secondYearAvgs,
-    y=firstYearLabel+secondYearLabel,
+    x=firstYearAvgs+secondYearAvgs+thirdYearAvgs,
+    y=firstYearLabel+secondYearLabel+thirdYearLabel,
     name='Average',
     marker=dict(
         color='#FF4136'
