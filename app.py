@@ -42,7 +42,7 @@ def get_logo():
         ], className="ten columns padded"),
 
         html.Div([
-            dcc.Link('Full View   ', href='/full-view', className ="text-primary")
+            html.A(['Full View'], href='/full-view', className ="button")
         ], className="two columns page-view no-print")
 
     ], className="row gs-header")
@@ -141,22 +141,42 @@ workTerms =  html.Div([  # page 2
             html.Br([]),
             get_menu(),
 			
+            # ENGR 004 
+            html.Div([
+                # Row 3
+                html.Div([
+                    html.H6('ENGR 004',
+                        className="gs-header gs-text-header padded"),
+                    html.Br([]),
+                        html.Div([
+                            html.H4([
+                                'AI (TBD) Developer',
+                            ],
+                            className="card-title"),
+                                html.P([
+                            'As a junior developer I worked to develop system Chat assistance for company.'
+                            ], className="card-text")
+                        ],className="card .bg-dark")
+                    ], className="twelve columns"),
+			], className ="row"),
+            
+            # ENGR 003 
 			html.Div([
-			# Row 3
-			html.Div([
-				html.H6('ENGR 003',
-					className="gs-header gs-text-header padded"),
-				html.Br([]),
-					html.Div([
-						html.H4([
-							'Junior Developer',
-						],
-						className="card-title"),
-							html.P([
-						'As a junior developer I worked with blockchain (ethereum and solidity) and web technologies such as react/redux. Also, worked in a start-up environment.'
-						], className="card-text")
-					],className="card .bg-dark")
-				], className="twelve columns"),
+                # Row 3
+                html.Div([
+                    html.H6('ENGR 003',
+                        className="gs-header gs-text-header padded"),
+                    html.Br([]),
+                        html.Div([
+                            html.H4([
+                                'Decentralized Application Developer',
+                            ],
+                            className="card-title"),
+                                html.P([
+                            'As a junior developer I worked with blockchain (ethereum and solidity) and web technologies such as react/redux. Also, worked in a start-up environment.'
+                            ], className="card-text")
+                        ],className="card .bg-dark")
+                    ], className="twelve columns"),
 			], className ="row"),
 			
             # Row 4
@@ -200,14 +220,14 @@ IT Changes for all ministries, and the second script was a server to application
 * Experience working with Java and in particular Eclipse.
 * Exposure to dynamically typed programming languages.
 * Programatically created word document using DOM framework used in Microsoft Office Product.
-			''')
+            ''')
                 ], className=" six columns"),
             ], className="row "),
 
-        ], className="subpage")
+         ], className="subpage")
 
-    ], className="page")
-	
+     ], className="page")
+    
 coopJobStats = html.Div([  # page 3
 
         print_button(),
@@ -228,9 +248,11 @@ coopJobStats = html.Div([  # page 3
                     html.H6('Personal Dashboard',
                             className="gs-header gs-text-header padded"),
                     html.P("\
-							I count the terms when I am looking, not the terms \
-							where I would be working. The number interviews I have had through UVIC \
-							is 11, 3 in Summer 2B, and 8 in Spring 3A/3B"),
+                            I count the terms when I am looking, not the terms \
+                            where I would be working. The number interviews I have had through UVIC \
+                            is 11, 3 in Summer 2B, and 8 in Spring 3A/3B."),
+                    html.P("\
+                            In my final co-op term I got an offer by insane luck, 3 apps, one interview, maybe I'll continue to scrap data from LIM tho."),
                     html.Br([]),
  
                     # My plot to show jobs vs time
@@ -289,10 +311,10 @@ coopJobStats = html.Div([  # page 3
                             
 
                 ], className="six columns"),
-				#html.Table(make_dash_table(df_fund_facts))
+                #html.Table(make_dash_table(df_fund_facts))
                 
                 html.Div([
-				    html.H6(["Job Interview Rates and Applications"], className="gs-header gs-table-header padded"),
+                    html.H6(["Job Interview Rates and Applications"], className="gs-header gs-table-header padded"),
 #                    html.P([ "%s%s%s%s%s" % ("Table 477-0058 Financial information of universities and degree-granting colleges", 
 #                    "revenues by type of funds",
 #                    "annual (dollars x 1,000)(1)", 
@@ -315,12 +337,12 @@ coopJobStats = html.Div([  # page 3
 #                            of universities and degree-granting colleges, revenues by type of funds, annual (dollars) \
 #                            (accessed: March 30, 2018)"),
                     html.P("\
-							In order to find a co-op work term, I applied to a large \
-							number of jobs, but as I am not the best at interviews, \
-							I usually appeared as a weak/unprepared candidate, guess I'm \
-							no good at answering questions. \
-							Interestingly, it seems as if there is a increased \
-							percentage of jobs are in Victoria near the end of April."),
+                            In order to find a co-op work term, I applied to a large \
+                            number of jobs, but as I am not the best at interviews, \
+                            I usually appeared as a weak/unprepared candidate, guess I'm \
+                            no good at answering questions. \
+                            Interestingly, it seems as if there is a increased \
+                            percentage of jobs are in Victoria near the end of April."),
                     dcc.Graph(
                         id = "graph-bar-interviews",
                         figure={
@@ -350,6 +372,20 @@ coopJobStats = html.Div([  # page 3
                                     },
                                     # get list of organization from sub dataframe
                                     name = "3B/3A term (Spring 2018) Interviews",
+                                    type = "bar"
+                                ),
+                                 go.Bar(
+                                    x = ['Victoria', 'Vancouver'],
+                                    y = ['1','0'],
+                                    marker = {
+                                      "color": "rgb(2, 255, 15)",
+                                      "line": {
+                                        "color": "rgb(255, 255, 255)",
+                                        "width": 2
+                                      }
+                                    },
+                                    # get list of organization from sub dataframe
+                                    name = "4A/4B term (Fall 2019) Interviews",
                                     type = "bar"
                                 ),
                             ],
@@ -399,60 +435,60 @@ coopJobStats = html.Div([  # page 3
                             'displayModeBar': False
                         }
                     ),
-				   dcc.Graph(
-						id = "graph-appPerTerms",
-						figure={
-							'data': [
-								{
-									"labels":  ['Summer 1B', 'Summer 2B','Spring 3A/3B'],
-									"values": ['6','79','105'],
-									"hoverinfo":'label+percent+name', 
-									"textinfo": 'value', 
-									"name": "Apps Per Term",
-									"type": "pie",
-									"hole": .2,
-									"domain": {"x": [0, .48]},
-								},
-								{
-									"labels": ['Summer 1B', 'Summer 2B','Spring 3A/3B'],
-									"values": ['1','6','15'],
-									# get list of organization from sub dataframe
-									"name": "Interviews Per Term",
-									"hoverinfo":'label+percent+name', 
-									"textinfo": 'value', 
-									"type": "pie",
-									"hole": .2,
-									"domain": {"x": [0.65, 1.13]},
-								},
-							],
-							'layout': go.Layout(
-								autosize = False,
-								font = {
-								  "family": "Raleway",
-								  "size": 10
-								},
-								height = 200,
-								hovermode = "closest",
-								legend = {
-								  "x": -0.0228945952895,
-								  "y": -0.189563896463,
-								  "orientation": "h",
-								  "yanchor": "top"
-								},
-								margin = {
-								  "r": 0,
-								  "t": 20,
-								  "b": 10,
-								  "l": 10
-								},
-								showlegend = True,
-								title = "",
-								width = 340
-							)
-						},
-						config={
-							'displayModeBar': False
-						},
+                   dcc.Graph(
+                        id = "graph-appPerTerms",
+                        figure={
+                            'data': [
+                                {
+                                    "labels":  ['Fall 2A', 'Summer 2B','Spring 3A/3B','Fall 4A/4B'],
+                                    "values": ['6','79','105','3'],
+                                    "hoverinfo":'label+percent+name', 
+                                    "textinfo": 'value', 
+                                    "name": "Apps Per Term",
+                                    "type": "pie",
+                                    "hole": .2,
+                                    "domain": {"x": [0, .48]},
+                                },
+                                {
+                                    "labels": ['Fall 2A', 'Summer 2B','Spring 3A/3B','Fall 4A/4B'],
+                                    "values": ['1','6','15','1'],
+                                    # get list of organization from sub dataframe
+                                    "name": "Interviews Per Term",
+                                    "hoverinfo":'label+percent+name', 
+                                    "textinfo": 'value', 
+                                    "type": "pie",
+                                    "hole": .2,
+                                    "domain": {"x": [0.65, 1.13]},
+                                },
+                            ],
+                            'layout': go.Layout(
+                                autosize = False,
+                                font = {
+                                  "family": "Raleway",
+                                  "size": 10
+                                },
+                                height = 200,
+                                hovermode = "closest",
+                                legend = {
+                                  "x": -0.0228945952895,
+                                  "y": -0.189563896463,
+                                  "orientation": "h",
+                                  "yanchor": "top"
+                                },
+                                margin = {
+                                  "r": 0,
+                                  "t": 20,
+                                  "b": 10,
+                                  "l": 10
+                                },
+                                showlegend = True,
+                                title = "",
+                                width = 340
+                            )
+                        },
+                        config={
+                            'displayModeBar': False
+                        },
                     ), 
                     html.Br([]),
                     html.H6("Risk Potential",
@@ -725,15 +761,15 @@ currentFacts = html.Div([ # page 4
             # Row 1
 
             html.Div([
-				html.Div([
-				    html.H6('Spring 2018 Final Exam Schedule',
+                html.Div([
+                    html.H6('Spring 2018 Final Exam Schedule',
                             className="gs-header gs-text-header padded"),
-					html.Table(make_dash_table(df_examS2018), className="table table-hover"),
-					#html.Table(make_dash_table(df_grades), className="table table-stripeed")					
-				], className="twelve columns"),
-				
-				# Row 2
-			    html.Div([
+                    html.Table(make_dash_table(df_examS2018), className="table table-hover"),
+                    #html.Table(make_dash_table(df_grades), className="table table-stripeed")                    
+                ], className="twelve columns"),
+                
+                # Row 2
+                html.Div([
                         html.H6('Grades',
                                 className="gs-header gs-text-header padded"),
                         dcc.Graph(figure=gradesBP, id='boxplot'),
@@ -742,7 +778,7 @@ currentFacts = html.Div([ # page 4
 
         ], className="subpage")
 
-    ], className="page")	
+    ], className="page")    
 
 
 randomStuff = html.Div([ # page 4
@@ -759,11 +795,11 @@ randomStuff = html.Div([ # page 4
 
             # Row 1
 
-            html.Div([	# Row 2
-				html.Div([
-						html.H6('Some Python',
-							className="gs-header gs-text-header padded"),
-						dcc.SyntaxHighlighter('''
+            html.Div([    # Row 2
+                html.Div([
+                        html.H6('Some Python',
+                            className="gs-header gs-text-header padded"),
+                        dcc.SyntaxHighlighter('''
 import python
 print(3)
 import easygui
@@ -782,8 +818,8 @@ for i in range(inputpdf.numPages):
         print("File: "+ "document-page%s.pdf" % i + " is printed")
 
 print("The script is done.")
-				''', language='python'),
-				], className="twelve columns"),
+                ''', language='python'),
+                ], className="twelve columns"),
             ], className="row ")
 
         ], className="subpage")
@@ -794,30 +830,30 @@ print("The script is done.")
 ganttData = [
     dict(Task='Fall 1A', Start='2014-09-01', Finish='2014-12-28', Resource='firstYear'),
     dict(Task='Spring 1B', Start='2015-01-01', Finish='2015-04-30', Resource='firstYear'),
-	dict(Task='Summer 1C', Start='2015-05-01', Finish='2015-08-31', Resource='firstYear'),
-	dict(Task='Fall 2A', Start='2015-09-01', Finish='2015-12-31', Resource='secondYear'),
-	dict(Task='Courses I', Start='2016-01-01', Finish='2016-04-30', Resource='Other'),
-	dict(Task='Summer 2B', Start='2016-05-01', Finish='2016-08-31', Resource='secondYear'),
-	dict(Task='ENGR-001', Start='2016-09-14', Finish='2016-12-31', Resource='Coop'),
-	dict(Task='ENGR-002', Start='2017-01-01', Finish='2017-04-29', Resource='Coop'),
-	dict(Task='Courses II', Start='2017-05-01', Finish='2017-09-30', Resource='Other'),
-	dict(Task='Fall 3B', Start='2017-09-01', Finish='2017-12-31', Resource='thirdYear'),
-	dict(Task='Spring 3B', Start='2018-01-01', Finish='2018-04-30', Resource='thirdYear'),
-	dict(Task='Job Hunt', Start='2015-05-01', Finish='2018-04-30', Resource='thirdYear'),
-	dict(Task='ENGR-003', Start='2018-05-01', Finish='2018-08-31', Resource='Coop')
+    dict(Task='Summer 1C', Start='2015-05-01', Finish='2015-08-31', Resource='firstYear'),
+    dict(Task='Fall 2A', Start='2015-09-01', Finish='2015-12-31', Resource='secondYear'),
+    dict(Task='Courses I', Start='2016-01-01', Finish='2016-04-30', Resource='Other'),
+    dict(Task='Summer 2B', Start='2016-05-01', Finish='2016-08-31', Resource='secondYear'),
+    dict(Task='ENGR-001', Start='2016-09-14', Finish='2016-12-31', Resource='Coop'),
+    dict(Task='ENGR-002', Start='2017-01-01', Finish='2017-04-29', Resource='Coop'),
+    dict(Task='Courses II', Start='2017-05-01', Finish='2017-09-30', Resource='Other'),
+    dict(Task='Fall 3B', Start='2017-09-01', Finish='2017-12-31', Resource='thirdYear'),
+    dict(Task='Spring 3B', Start='2018-01-01', Finish='2018-04-30', Resource='thirdYear'),
+    dict(Task='Job Hunt', Start='2015-05-01', Finish='2018-04-30', Resource='thirdYear'),
+    dict(Task='ENGR-003', Start='2018-05-01', Finish='2018-08-31', Resource='Coop')
     # dict(Task='Anime', Start='2014-01-01', Finish='2019-01-01', Resource='Anime')
 ]
 ganttData.reverse()
 colors = dict(firstYear = 'rgb(46, 17, 255)',
-			  secondYear = 'rgb(46, 255, 51)',
-			  thirdYear = 'rgb(255, 75, 25)',
+              secondYear = 'rgb(46, 255, 51)',
+              thirdYear = 'rgb(255, 75, 25)',
               Coop = 'rgb(114, 2, 121)',
               Other = 'rgb(128, 17, 15)',
-			  Anime = 'rgb(18, 76, 165)')
+              Anime = 'rgb(18, 76, 165)')
 figGantt = ff.create_gantt(ganttData,colors,index_col='Resource', title='Academic Life Thus Far',
                       show_colorbar=True, bar_width=0.2, showgrid_x=True, showgrid_y=True,
-					  height=575, width=725)
-					  
+                      height=575, width=725)
+                      
 academicTimeline = html.Div([  # page 6
 
         print_button(),
@@ -884,7 +920,7 @@ def display_page(pathname):
 
 # lastest css file wins so 
 external_css = ["https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css",
-				"https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css",
+                "https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css",
                 "https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css",
                 "//fonts.googleapis.com/css?family=Raleway:400,300,600",
                 "https://codepen.io/bcd/pen/KQrXdb.css"]
