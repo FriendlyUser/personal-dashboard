@@ -37,7 +37,7 @@ def print_button():
 def get_logo():
     logo = html.Div([
         html.Div([
-            html.Img(src='http://www.web.uvic.ca/~lidavid/images/logo.png', width = 25, height = 25)
+            html.Img(src='https://studentweb.uvic.ca/~lidavid/images/logo.png', width = 25, height = 25)
 			# Consider adding link to git repo.
         ], className="ten columns padded"),
 
@@ -174,7 +174,18 @@ workTerms =  html.Div([  # page 2
                             className="card-title"),
                                 html.P([
                             'As a junior developer I worked with blockchain (ethereum and solidity) and web technologies such as react/redux. Also, worked in a start-up environment.'
-                            ], className="card-text")
+                            ], className="card-text"),
+                            dcc.Markdown('''
+ * React, front-end framework made by facebook, its okay, built on top
+    of javascript.
+ * Solidity, programming language for smart contracts, closely
+    resembles javascript, but borrows elements from python and C. Also,
+    useful for other blockchains such as Hedera HashGraph.
+ * Postgres, advanced open source database, similar syntax to SQL.
+    Played around with psql and pg-promise (node wrapper for postgres).
+ * Unix/Linux, configured digital ocean droplets, used GNU Screen,
+    recommend using OSX to develop as its easier to setup than windows.
+                                        ''')
                         ],className="card .bg-dark")
                     ], className="twelve columns"),
 			], className ="row"),
@@ -185,22 +196,16 @@ workTerms =  html.Div([  # page 2
                     html.H6('ENGR 001',
                             className="gs-header gs-text-header padded"),
                     html.P("\
-							For my first work term at the Ministry of Transportation: Information Management Branch (TRAN IMB) which \
-							oversees and maintains over 100 applications for TRAN, I learned how to work with JIRA and Confluence, \
+							I learned how to work with JIRA and Confluence, data visualization \
 							discuss potential workflows and assist to ad-hoc tasks as necessary."),
 					
 					dcc.Markdown('''
-#### JIRA and Confluence
+
 I became familar with Atlassian tools [JIRA](https://www.atlassian.com/software/jira) and [Confluence](https://www.atlassian.com/software/confluence)
-> While JIRA offers flexible issue tracking and project management, Confluence is wiki software used for technical documentation to 
-> locates information quickly and easily.
 * Created JIRA dashboards using JIRA Query Language (JQL), and report templates in Confluence
 * Assisted with testing web applications.
 * Familiar with Microsoft Office, and organizing emails in Outlook.
-```SQL
-assignee IN membersOf("Collaboration Squad \
-    
-	ORDER BY assignee")```				
+			
 ''')
                 ], className=" six columns"),
 				
@@ -208,18 +213,13 @@ assignee IN membersOf("Collaboration Squad \
                     html.H6('ENGR 002',
                             className="gs-header gs-text-header padded"),
 					html.P("\
-						For my second work term at the Ministry of Transportation: Information Management Branch (TRAN IMB) which \
-						oversees and maintains over 100 applications for TRAN, I created scripts to automatic tedious tasks and \
-						worked on a Java project (documented environment setup, created login interface and report emailing)"),
+						I created scripts to automatic tedious tasks and \
+						worked with Java, SQL and VBScript."),
 					dcc.Markdown('''
-#### Second Work Term Summary
-I created two scripts, one Change Advisory Board Script to extract RFCs from a spreadsheet containing short-term \
-IT Changes for all ministries, and the second script was a server to application list.
-
 * Learned to how write pseudocode and rules for creating good documentation.
 * Experience working with Java and in particular Eclipse.
 * Exposure to dynamically typed programming languages.
-* Programatically created word document using DOM framework used in Microsoft Office Product.
+* Automatic report generation using DOM framework.
             ''')
                 ], className=" six columns"),
             ], className="row "),
@@ -819,6 +819,10 @@ for i in range(inputpdf.numPages):
 
 print("The script is done.")
                 ''', language='python'),
+                        dcc.SyntaxHighlighter('''
+assignee IN membersOf("Collaboration Squad \
+    ORDER BY assignee")
+                        ''', language='SQL'), 
                 ], className="twelve columns"),
             ], className="row ")
 
