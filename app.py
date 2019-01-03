@@ -65,7 +65,6 @@ def get_menu():
     menu = html.Div([
 
         dcc.Link('Overview   ', href='/overview', className="tab first"),
-        dcc.Link('Co-op Job Hunt   ', href='/coop', className="tab"),
         dcc.Link('Co-op Work Terms   ', href='/work-terms', className="tab"),
         dcc.Link('Current Facts   ', href='/current-facts', className="tab"),
         dcc.Link('Random Stuff   ', href='/random-stuff', className="tab"),
